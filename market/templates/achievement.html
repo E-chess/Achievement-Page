@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+    Market Page
+{% endblock %}
+
+{% block content %}
+    <div class="row" style="margin-top:20px; margin-left:20px; margin-right:20px">
+        <div class="col-8">
+            <h2>Osiągnięcia</h2>
+            <p>Naciśnij aby zobaczyć.</p>
+            <table class="table table-hover table-dark">
+                <thead>
+                <tr>
+                    <!-- Your Columns HERE -->
+                    <th scope="col">Nazwa</th>
+                    <th scope="col" style="text-align: right">Wartość</th>
+                    <th scope="col" style="text-align: left"></th>
+                    <th scope="col">Szkoła</th>
+                    <th scope="col">Kategoria</th>
+                    <th scope="col">Akcje</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Your rows inside the table HERE: -->
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td style="text-align: right;">{{ item.value }}</td>
+                        <td style="text-align: left;">{{ item.unit_of_value }}</td>
+                        <td>{{ item.school_name }}</td>
+                        <td>{{ item.category }}</td>
+                        <td>
+                            <button class="btn btn-outline btn-info">Więcej informacji</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4">
+            <h2>Dodaj woją szkołę</h2>
+            <p>Napisz emial na {{ email }}, aby dołączyć do księgi rekordów.</p>
+        </div>
+    </div>
+{% endblock %}
