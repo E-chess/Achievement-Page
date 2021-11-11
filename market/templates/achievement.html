@@ -13,11 +13,10 @@
                 <tr>
                     <!-- Your Columns HERE -->
                     <th scope="col">Nazwa</th>
-                    <th scope="col" style="text-align: right">Wartość</th>
-                    <th scope="col" style="text-align: left"></th>
+                    <th scope="col">Wartość</th>
                     <th scope="col">Szkoła</th>
                     <th scope="col">Kategoria</th>
-                    <th scope="col">Akcje</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,8 +24,7 @@
                 {% for item in items %}
                     <tr>
                         <td>{{ item.name }}</td>
-                        <td style="text-align: right;">{{ item.value }}</td>
-                        <td style="text-align: left;">{{ item.unit_of_value }}</td>
+                        <td>{{ item.value }}</td>
                         <td>{{ item.school_name }}</td>
                         <td>{{ item.category }}</td>
                         <td>
