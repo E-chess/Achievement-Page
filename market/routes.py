@@ -12,4 +12,5 @@ def home_page():
 @app.route('/achievement')
 def achievement_page():
     items = Item.query.all()
-    return render_template('achievement.html', items=items)
+    mail = "biuro.szachy.online@gmail.com"
+    return render_template('achievement.html', items=items, mail=mail)

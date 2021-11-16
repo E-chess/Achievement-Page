@@ -8,6 +8,7 @@ class Item(db.Model):
     school_name = db.Column(db.String(), nullable=False)
     category = db.Column(db.String(), nullable=False)
     description = db.Column(db.String())
+    link = db.Column(db.String())
 
     def __repr__(self):
         return f'Item {self.name}'
