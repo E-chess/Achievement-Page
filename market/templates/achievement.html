@@ -11,16 +11,16 @@
             <table class="table table-hover table-dark">
                 <thead>
                 <tr>
-                    <!-- Your Columns HERE -->
                     <th scope="col">Nazwa rekordu</th>
                     <th scope="col">Wartość rekordu</th>
                     <th scope="col">Szkoła</th>
                     <th scope="col">Kategoria</th>
+                    <th scope="col">Data</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Your rows inside the table HERE: -->
+
                 {% for item in items %}
                     {% include 'includes/items_modals.html' %}
                     <tr>
@@ -28,6 +28,7 @@
                         <td>{{ item.value }}</td>
                         <td>{{ item.school_name }}</td>
                         <td>{{ item.category }}</td>
+                        <td>{{ item.date_of_add }}</td>
                         <td>
                             <button class="btn btn-outline btn-info" data-toggle="modal"
                                     data-target="#Modal-MoreInfo-{{ item.id }}">Więcej informacji
@@ -38,12 +39,50 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-4">
-            <h2>Dodaj swoją szkołę</h2>
-            <p>Aby dołączyć swoją szkołę
-            do księgi rekordów napisz emial na
-            <a href="mailto://{{ mail }}">{{ mail }}</a>
-            </p>
-        </div>
+        {% if current_user.is_authenticated %}
+            <div class="text-center">
+                <form method="POST" class="form-register" style="color:white">
+                    {{ form.hidden_tag() }}
+                    <dev class="text-left">
+                    <h1 class="h3 mb-3 font-weight-normal text-left">
+                        Dodaj rekord
+                        <h6 id="required">*Wymagane</h6>
+                    </h1>
+                    </dev>
+
+                    <br>
+
+                    <a id="required">{{ form.name.label() }} *</a>
+                    {{ form.name(class="form-control", placeholder="Name") }}
+
+                    <a id="required">{{ form.value.label() }} *</a>
+                    {{ form.value(class="form-control", placeholder="Value") }}
+
+                    <a id="required">{{ form.school_name.label() }} *</a>
+                    {{ form.school_name(class="form-control", placeholder="School Name") }}
+
+                    <a id="required">{{ form.category.label() }} *</a>
+                    {{ form.category(class="form-control", placeholder="Category") }}
+
+                    {{ form.description.label() }}
+                    {{ form.description(class="form-control", placeholder="Description") }}
+
+                    {{ form.link.label() }}
+                    {{ form.link(class="form-control", placeholder="Link") }}
+                    <br>
+
+                    {{ form.submit(class="btn btn-lg btn-block btn-success") }}
+
+                </form>
+            </div>
+        {% else %}
+            <div class="col-4">
+                <h2>Dodaj swoją szkołę</h2>
+                <p>Aby dołączyć swoją szkołę
+                    do księgi rekordów napisz emial na
+                    <a href="mailto://{{ mail }}">{{ mail }}</a>
+                </p>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

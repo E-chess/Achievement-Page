@@ -4,7 +4,6 @@
     }
 </style>
 
-<!-- More Info -->
 <div class="modal fade" id="Modal-MoreInfo-{{ item.id }}"
      tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -15,20 +14,63 @@
                     Rekord {{ item.name }}
                 </h5>
             </div>
+
             <div class="modal-body">
-
-                {% if item.description != "" %}
-                    {{ item.description }}
-                {% else %}
-                    Niestety rekord "{{ item.name }}" niema opisu, bardzo przeprasamy.
-                {% endif %}
-
+                <div class="jumbotron bg-dark text-center p-3 p-md-5 m-md-3 position-relative overflow-hidden"
+                     style="color:white">
+                    <div class="mx-auto">
+                        {% if item.description != None %}
+                            {{ item.description }}
+                        {% else %}
+                            <warning>Niestety rekord "{{ item.name }}" niema opisu, bardzo przeprasamy.</warning>
+                        {% endif %}
+                    </div>
+                    {% if item.link != None %}
+                        {% if "you" in item.link %}
+                            <iframe width="338" height="190.125"
+                                    src="https://www.youtube-nocookie.com/embed/{{ item.link.split("/")[3] }}"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                        {% else %}
+                            <div class="m-md-3">
+                                <a type="button" class="btn btn-primary btn-block" data-toggle="tooltip"
+                                   data-placement="top"
+                                   title="{{ "/".join(item.link.split("/")[:3]) }}" href="{{ item.link }}"
+                                   target="_blank">
+                                    Załącznik
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    <div class="product-device box-shadow d-none d-md-block"></div>
+                    <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
+                </div>
             </div>
-            <div class="modal-body">
 
-            </div>
+            {% if item.link != None %}
+                <div class="modal-body">
+                    {% if "yout" in item.link %}
+                        <div class="m-md-3">
+                            <iframe width="434" height="244.125"
+                                    src="https://www.youtube-nocookie.com/embed/{{ item.link.split("/")[3] }}"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                        </div>
+                    {% else %}
+                        <div class="m-md-3">
+                            <a type="button" class="btn btn-info btn-block" data-toggle="tooltip" data-placement="top"
+                               title="{{ "/".join(item.link.split("/")[:3]) }}" href="{{ item.link }}" target="_blank">
+                                Załącznik
+                            </a>
+                        </div>
+                    {% endif %}
+
+                </div>
+            {% endif %}
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary"
+                <button type="button" class="btn btn-warning"
                         data-dismiss="modal">Zamknij
                 </button>
             </div>
