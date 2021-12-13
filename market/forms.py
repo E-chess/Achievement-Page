@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 
-from market.models import User, Item
+from market.models import User, Item, School, Category
 
 
 class RegisterForm(FlaskForm):
@@ -33,15 +33,39 @@ class AddForm(FlaskForm):
     def validate_name(self, name_to_check):
         item = Item.query.filter_by(name=name_to_check.data).first()
         if item:
-            raise ValidationError('Username already exists! Please try a different username')
+            raise ValidationError('Rekord o takiej nazwie już istnieje, musisz wybrać inną')
+
+    school_list = []
+    for school in School.query.all():
+        school_list.append((school.name, school.full_name))
+
+    category_list = []
+    for category in Category.query.all():
+        category_list.append((category.name, category.full_name))
 
     name = StringField(label='Nazwa rekordu', validators=[DataRequired()])
     value = StringField(label='Wartość rekordu', validators=[DataRequired()])
+    participants = StringField(label='Uczestnicy', validators=[])
+
     school_name = SelectField(label='Nazwa szkoły',
-                              choices=[('SP220', 'Szkoła podstawowa nr 220 im. Stanisława Kopczyńskiego')],
+                              choices=school_list,
                               validators=[DataRequired()])
+
+    # Kategorie
     category = SelectField(label='Kategoria',
-                           choices=[('sport', 'Sporty')], validators=[DataRequired()])
-    description = StringField(label='Opis')
+                           choices=category_list,
+                           validators=[DataRequired()])
+
+    # Data zrobieni rekordu rozłożona na czyniki pierwsze
+    date_of_do_year = StringField(label='Data wykonania', validators=[DataRequired()])
+    date_of_do_month = StringField(label='', validators=[DataRequired()])
+    date_of_do_day = StringField(label='', validators=[DataRequired()])
+
+    # Opis
+    description = TextAreaField(label='Opis')
+
+    # Link
     link = StringField(label='link')
+
+    # Akceptacja
     submit = SubmitField(label='Dodaj')

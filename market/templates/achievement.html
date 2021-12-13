@@ -4,11 +4,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row" style="margin-top:20px; margin-left:20px; margin-right:20px">
+    <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px">
         <div class="col-8">
             <h2>Księga rekordów</h2>
-            <p>Naciśnij aby zobaczyć.</p>
-            <table class="table table-hover table-dark">
+            <p>Naciśnij aby zobaczyć opis.</p>
+            <table class="table table-hover table-dark table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Nazwa rekordu</th>
@@ -19,8 +19,8 @@
                     <th scope="col"></th>
                 </tr>
                 </thead>
-                <tbody>
 
+                <tbody>
                 {% for item in items %}
                     {% include 'includes/items_modals.html' %}
                     <tr>
@@ -40,14 +40,14 @@
             </table>
         </div>
         {% if current_user.is_authenticated %}
-            <div class="text-center">
+            <div class="text-center" style="margin-left:20px">
                 <form method="POST" class="form-register" style="color:white">
                     {{ form.hidden_tag() }}
                     <dev class="text-left">
-                    <h1 class="h3 mb-3 font-weight-normal text-left">
-                        Dodaj rekord
-                        <h6 id="required">*Wymagane</h6>
-                    </h1>
+                        <h1 class="h3 mb-3 font-weight-normal text-left">
+                            Dodaj rekord
+                            <h6 id="required">*Wymagane</h6>
+                        </h1>
                     </dev>
 
                     <br>
@@ -58,17 +58,94 @@
                     <a id="required">{{ form.value.label() }} *</a>
                     {{ form.value(class="form-control", placeholder="Value") }}
 
+
+                    {{ form.participants.label() }}
+                    <dev class="row">
+                        <div class="col-4 my-2">
+                            {{ form.participants(class="form-control", placeholder="Uczestnicy") }}
+                        </div>
+                        <div class="col-auto text-left" style="color: #6a6a6a">
+                            <h6>Np.:</h6>
+                            <em>'Filip Gołębowski;Kornel Szymczak;Anna Kurowska'</em>
+                        </div>
+                    </dev>
+
                     <a id="required">{{ form.school_name.label() }} *</a>
                     {{ form.school_name(class="form-control", placeholder="School Name") }}
 
                     <a id="required">{{ form.category.label() }} *</a>
                     {{ form.category(class="form-control", placeholder="Category") }}
 
-                    {{ form.description.label() }}
-                    {{ form.description(class="form-control", placeholder="Description") }}
 
-                    {{ form.link.label() }}
-                    {{ form.link(class="form-control", placeholder="Link") }}
+                    <a id="required">{{ form.date_of_do_year.label() }} *</a>
+                    <div class="row">
+                        <dev class="col-6 form-row align-items-center center">
+                            <div class="col-auto my-2">
+                                <div class="input-group">
+                                    {{ form.date_of_do_year(class="form-control", placeholder="Rok") }}
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">Rok</div>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    {{ form.date_of_do_month(class="form-control", placeholder="Miesiąc") }}
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">Miesiąc</div>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    {{ form.date_of_do_day(class="form-control", placeholder="Dzień") }}
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">Dzień</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </dev>
+                        <div class="col-auto text-right" style="color: #6a6a6a">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th scope="col">Np.:</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><em>'2021'</em></td>
+                                    <td>:</td>
+                                    <td>Rok</td>
+                                </tr>
+                                <tr>
+                                    <td><em>'6'</em></td>
+                                    <td>:</td>
+                                    <td>Miesiąc</td>
+                                </tr>
+                                <tr>
+                                    <td><em>'30'</em></td>
+                                    <td>:</td>
+                                    <td>Dzień</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <a>{{ form.description.label() }}</a>
+                    <div class="input-group">
+                        {{ form.description(id="textarea", type="textarea", class="form-control", placeholder="Description") }}
+                    </div>
+
+                    <a>{{ form.link.label() }}</a>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">https://</span>
+                        </div>
+
+                        {{ form.link(class="form-control", placeholder="Link") }}
+                    </div>
+
                     <br>
 
                     {{ form.submit(class="btn btn-lg btn-block btn-success") }}
@@ -76,7 +153,7 @@
                 </form>
             </div>
         {% else %}
-            <div class="col-4">
+            <div class="col-4" style="margin-top:20px; margin-left:20px; margin-right:20px">
                 <h2>Dodaj swoją szkołę</h2>
                 <p>Aby dołączyć swoją szkołę
                     do księgi rekordów napisz emial na

@@ -16,35 +16,33 @@
             </div>
 
             <div class="modal-body">
-                <div class="jumbotron bg-dark text-center p-3 p-md-5 m-md-3 position-relative overflow-hidden"
+                <div class="jumbotron bg-dark p-3 p-md-5 m-md-3 position-relative overflow-hidden"
                      style="color:white">
                     <div class="mx-auto">
-                        {% if item.description != None %}
-                            {{ item.description }}
-                        {% else %}
-                            <warning>Niestety rekord "{{ item.name }}" niema opisu, bardzo przeprasamy.</warning>
-                        {% endif %}
+                        Opis:
+                        <div class="text-center">
+                            {% if item.description != None %}
+                                {% for description in item.description.split("\n") %}
+                                    {{ description }}
+                                {% endfor %}
+                            {% else %}
+                                <warning id="warning">Niestety rekord "{{ item.name }}" niema opisu, bardzo
+                                    przeprasamy.
+                                </warning>
+                            {% endif %}
+                        </div>
+                        <br>
                     </div>
-                    {% if item.link != None %}
-                        {% if "you" in item.link %}
-                            <iframe width="338" height="190.125"
-                                    src="https://www.youtube-nocookie.com/embed/{{ item.link.split("/")[3] }}"
-                                    title="YouTube video player" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                        {% else %}
-                            <div class="m-md-3">
-                                <a type="button" class="btn btn-primary btn-block" data-toggle="tooltip"
-                                   data-placement="top"
-                                   title="{{ "/".join(item.link.split("/")[:3]) }}" href="{{ item.link }}"
-                                   target="_blank">
-                                    Załącznik
-                                </a>
-                            </div>
-                        {% endif %}
-                    {% endif %}
-                    <div class="product-device box-shadow d-none d-md-block"></div>
-                    <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
+                    <div class="mx-auto">
+                        Uczestnicy:
+                        <div class="text-center">
+                            {% if item.participants != None %}
+                                {% for participant in item.participants.split(";") %}
+                                    {{ participant }}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -52,11 +50,11 @@
                 <div class="modal-body">
                     {% if "yout" in item.link %}
                         <div class="m-md-3">
-                            <iframe width="434" height="244.125"
-                                    src="https://www.youtube-nocookie.com/embed/{{ item.link.split("/")[3] }}"
-                                    title="YouTube video player" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item"
+                                        src="https://www.youtube-nocookie.com/embed/{{ item.link.split("/")[3] }}"
+                                        allowfullscreen></iframe>
+                            </div>
                         </div>
                     {% else %}
                         <div class="m-md-3">
@@ -66,11 +64,13 @@
                             </a>
                         </div>
                     {% endif %}
-
                 </div>
             {% endif %}
+            <div class="m-md-3">
+                <a style="color: #6a6a6a">Rekord dodał: {{ item.owner }}</a>
+            </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning"
+                <button type="button" class="btn btn-danger"
                         data-dismiss="modal">Zamknij
                 </button>
             </div>

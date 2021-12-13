@@ -19,14 +19,18 @@ def achievement_page():
     if request.method == "POST":
         if form.validate_on_submit():
             t = time.localtime()
-            tm_to_save = f"{t.tm_mday}/{t.tm_mon}/{t.tm_year}"
+            d_o_a_to_save = f"{t.tm_mday}/{t.tm_mon}/{t.tm_year}"
+            d_o_d_to_save = f"{form.date_of_do_day.data}/{form.date_of_do_month.data}/{form.date_of_do_day.data}"
+            link_to_save = f"https://{form.link.data}"
             achievement_to_add = Item(name=form.name.data,
                                       value=form.value.data,
+                                      participants=form.value.data,
                                       school_name=form.school_name.data,
                                       category=form.category.data,
+                                      date_of_do=d_o_d_to_save,
                                       description=form.description.data if form.description.data != "" else None,
-                                      link=form.link.data if form.link.data != "" else None,
-                                      date_of_add=tm_to_save,
+                                      link=link_to_save if form.link.data != "" else None,
+                                      date_of_add=d_o_a_to_save,
                                       owner=current_user.username)
             db.session.add(achievement_to_add)
             db.session.commit()
@@ -65,7 +69,7 @@ def login_page():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
