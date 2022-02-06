@@ -39,125 +39,127 @@
                 </tbody>
             </table>
         </div>
-        {% if current_user.is_authenticated %}
-            <div class="text-center" style="margin-right: 20px">
-                <form method="POST" class="form-register" style="color:white">
-                    {{ form.hidden_tag() }}
-                    <dev class="text-left">
-                        <h1 class="h3 mb-3 font-weight-normal text-left">
-                            Dodaj rekord
-                            <h6 id="required">*Wymagane</h6>
-                        </h1>
-                    </dev>
+        <div class="col">
+            {% if current_user.is_authenticated %}
+                <div class="text-center" style="margin-right: 20px">
+                    <form method="POST" class="form-register" style="color:white">
+                        {{ form.hidden_tag() }}
+                        <dev class="text-left">
+                            <h1 class="h3 mb-3 font-weight-normal text-left">
+                                Dodaj rekord
+                                <h6 id="required">*Wymagane</h6>
+                            </h1>
+                        </dev>
 
-                    <br>
+                        <br>
 
-                    <a id="required">{{ form.name.label() }} *</a>
-                    {{ form.name(class="form-control", placeholder="Name") }}
+                        <a id="required">{{ form.name.label() }} *</a>
+                        {{ form.name(class="form-control", placeholder="Name") }}
 
-                    <a id="required">{{ form.value.label() }} *</a>
-                    {{ form.value(class="form-control", placeholder="Value") }}
-
-
-                    {{ form.participants.label() }}
-                    <dev class="row">
-                        <div class="col-4 my-2">
-                            {{ form.participants(class="form-control", placeholder="Uczestnicy") }}
-                        </div>
-                        <div class="col-auto text-left" style="color: #6a6a6a">
-                            <h6>Np.:</h6>
-                            <em>'Filip Gołębowski;Kornel Szymczak;Anna Kurowska'</em>
-                        </div>
-                    </dev>
-
-                    <a id="required">{{ form.school_name.label() }} *</a>
-                    {{ form.school_name(class="form-control", placeholder="School Name") }}
-
-                    <a id="required">{{ form.category.label() }} *</a>
-                    {{ form.category(class="form-control", placeholder="Category") }}
+                        <a id="required">{{ form.value.label() }} *</a>
+                        {{ form.value(class="form-control", placeholder="Value") }}
 
 
-                    <a id="required">{{ form.date_of_do_year.label() }} *</a>
-                    <div class="row">
-                        <dev class="col-6 form-row align-items-center center">
+                        {{ form.participants.label() }}
+                        <dev class="row">
                             <div class="col-auto my-2">
-                                <div class="input-group">
-                                    {{ form.date_of_do_year(class="form-control", placeholder="Rok") }}
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">Rok</div>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    {{ form.date_of_do_month(class="form-control", placeholder="Miesiąc") }}
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">Miesiąc</div>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    {{ form.date_of_do_day(class="form-control", placeholder="Dzień") }}
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">Dzień</div>
-                                    </div>
-                                </div>
+                                {{ form.participants(class="form-control", placeholder="Uczestnicy") }}
+                            </div>
+                            <div class="col text-left" style="color: #6a6a6a">
+                                <h6>Np.:</h6>
+                                <em>'Filip Gołębowski;Kornel Szymczak;Anna Kurowska'</em>
                             </div>
                         </dev>
-                        <div class="col-auto text-right" style="color: #6a6a6a">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th scope="col">Np.:</th>
-                                    <th scope="col"></th>
-                                    <th scope="col"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><em>'2021'</em></td>
-                                    <td>:</td>
-                                    <td>Rok</td>
-                                </tr>
-                                <tr>
-                                    <td><em>'6'</em></td>
-                                    <td>:</td>
-                                    <td>Miesiąc</td>
-                                </tr>
-                                <tr>
-                                    <td><em>'30'</em></td>
-                                    <td>:</td>
-                                    <td>Dzień</td>
-                                </tr>
-                                </tbody>
-                            </table>
+
+                        <a id="required">{{ form.school_name.label() }} *</a>
+                        {{ form.school_name(class="form-control", placeholder="School Name") }}
+
+                        <a id="required">{{ form.category.label() }} *</a>
+                        {{ form.category(class="form-control", placeholder="Category") }}
+
+
+                        <a id="required">{{ form.date_of_do_year.label() }} *</a>
+                        <div class="row">
+                            <dev class="col-6 form-row align-items-center center">
+                                <div class="col-auto my-2">
+                                    <div class="input-group">
+                                        {{ form.date_of_do_year(class="form-control", placeholder="Rok") }}
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">Rok</div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        {{ form.date_of_do_month(class="form-control", placeholder="Miesiąc") }}
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">Miesiąc</div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        {{ form.date_of_do_day(class="form-control", placeholder="Dzień") }}
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">Dzień</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </dev>
+                            <div class="col-auto text-right" style="color: #6a6a6a">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Np.:</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><em>'2021'</em></td>
+                                        <td>:</td>
+                                        <td>Rok</td>
+                                    </tr>
+                                    <tr>
+                                        <td><em>'6'</em></td>
+                                        <td>:</td>
+                                        <td>Miesiąc</td>
+                                    </tr>
+                                    <tr>
+                                        <td><em>'30'</em></td>
+                                        <td>:</td>
+                                        <td>Dzień</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
 
 
-                    <a>{{ form.description.label() }}</a>
-                    <div class="input-group">
-                        {{ form.description(id="textarea", type="textarea", class="form-control", placeholder="Description") }}
-                    </div>
-
-                    <a>{{ form.link.label() }}</a>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon3">https://</span>
+                        <a>{{ form.description.label() }}</a>
+                        <div class="input-group">
+                            {{ form.description(id="textarea", type="textarea", class="form-control", placeholder="Description") }}
                         </div>
 
-                        {{ form.link(class="form-control", placeholder="Link") }}
-                    </div>
+                        <a>{{ form.link.label() }}</a>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">https://</span>
+                            </div>
 
-                    <br>
+                            {{ form.link(class="form-control", placeholder="Link") }}
+                        </div>
 
-                    {{ form.submit(class="btn btn-lg btn-block btn-success") }}
+                        <br>
 
-                </form>
-            </div>
-        {% else %}
-            <h2>Dodaj swoją szkołę</h2>
-            <p>Aby dołączyć swoją szkołę
-                do księgi rekordów napisz emial na
-                <a href="mailto://{{ mail }}">{{ mail }}</a>
-            </p>
-        {% endif %}
+                        {{ form.submit(class="btn btn-lg btn-block btn-success") }}
+
+                    </form>
+                </div>
+            {% else %}
+                <h2>Dodaj swoją szkołę</h2>
+                <p>Aby dołączyć swoją szkołę
+                    do księgi rekordów napisz emial na
+                    <a href="mailto://{{ mail }}">{{ mail }}</a>
+                </p>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

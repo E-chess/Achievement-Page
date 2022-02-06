@@ -69,7 +69,7 @@ def login_page():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
