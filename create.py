@@ -1,4 +1,4 @@
-from market.models import db, User
+from market.models import db
 
 db.drop_all()
 db.create_all()

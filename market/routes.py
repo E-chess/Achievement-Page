@@ -1,7 +1,7 @@
 import time
 
 from flask import render_template, flash, redirect, url_for, request
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 from market import app, db
 from market.forms import LoginForm, RegisterForm, AddForm
@@ -34,7 +34,7 @@ def achievement_page():
                                       owner=current_user.username)
             db.session.add(achievement_to_add)
             db.session.commit()
-            flash(f"Rekord pomyślnie utowżono! Nazwa to: {achievement_to_add.name}",
+            flash(f'Rekord pomyślnie utowżono! Nazwa to: "{achievement_to_add.name}"',
                   category='success')
             return redirect(url_for('achievement_page'))
 
@@ -68,8 +68,9 @@ def login_page():
     return render_template('login.html', form=form)
 
 
+# noinspection PyArgumentList
 @app.route('/register', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
@@ -93,3 +94,8 @@ def logout_page():
     logout_user()
     flash("Zostałeś wylogowany", category='info')
     return redirect(url_for("achievement_page"))
+
+
+@app.route('/ip')
+def ip_page():
+    return request.remote_addr
