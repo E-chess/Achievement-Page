@@ -34,7 +34,7 @@ def achievement_page():
                                       owner=current_user.username)
             db.session.add(achievement_to_add)
             db.session.commit()
-            flash(f'Rekord pomyślnie utowżono! Nazwa to: "{achievement_to_add.name}"',
+            flash(f"Rekord pomyślnie utowżono! Nazwa to: {achievement_to_add.name}",
                   category='success')
             return redirect(url_for('achievement_page'))
 
@@ -70,7 +70,7 @@ def login_page():
 
 # noinspection PyArgumentList
 @app.route('/register', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
@@ -94,8 +94,3 @@ def logout_page():
     logout_user()
     flash("Zostałeś wylogowany", category='info')
     return redirect(url_for("achievement_page"))
-
-
-@app.route('/ip')
-def ip_page():
-    return request.remote_addr
