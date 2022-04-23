@@ -31,7 +31,7 @@ class LoginForm(FlaskForm):
 
 class AddForm(FlaskForm):
     @staticmethod
-    def validate_name(name_to_check):
+    def validate_name(self, name_to_check):
         item = Item.query.filter_by(name=name_to_check.data).first()
         if item:
             raise ValidationError('Rekord o takiej nazwie już istnieje, musisz wybrać inną')
