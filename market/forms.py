@@ -1,18 +1,18 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
-
+from market import db
 from market.models import User, Item, School, Category
 
 
 class RegisterForm(FlaskForm):
     def validate_username(self, username_to_check):
-        user = User.query.filter_by(username=username_to_check.data).first()
+        user = db.session.query(User).filter_by(username=username_to_check.data).first()
         if user:
             raise ValidationError('Username already exists! Please try a different username')
 
     def validate_email_address(self, email_address_to_check):
-        email_address = User.query.filter_by(email_address=email_address_to_check.data).first()
+        email_address = db.session.query(User).filter_by(email_address=email_address_to_check.data).first()
         if email_address:
             raise ValidationError('Email Address already exists! Please try a different email address')
 
@@ -32,16 +32,16 @@ class LoginForm(FlaskForm):
 class AddForm(FlaskForm):
     @staticmethod
     def validate_name(self, name_to_check):
-        item = Item.query.filter_by(name=name_to_check.data).first()
+        item = db.session.query(Item).filter_by(name=name_to_check.data).first()
         if item:
             raise ValidationError('Rekord o takiej nazwie już istnieje, musisz wybrać inną')
 
     school_list = []
-    for school in School.query.all():
+    for school in db.session.query(School):
         school_list.append((school.name, school.full_name))
 
     category_list = []
-    for category in Category.query.all():
+    for category in db.session.query(Category):
         category_list.append((category.name, category.full_name))
 
     name = StringField(label='Nazwa rekordu', validators=[DataRequired()])

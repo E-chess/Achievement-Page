@@ -1,7 +1,8 @@
+import datetime
 import time
 
 from flask import render_template, flash, redirect, url_for, request
-from flask_login import login_user, logout_user, current_user, login_required
+from flask_login import login_user, logout_user, current_user
 
 from market import app, db
 from market.forms import LoginForm, RegisterForm, AddForm
@@ -19,8 +20,9 @@ def achievement_page():
     if request.method == "POST":
         if form.validate_on_submit():
             t = time.localtime()
-            d_o_a_to_save = f"{t.tm_mday}/{t.tm_mon}/{t.tm_year}"
-            d_o_d_to_save = f"{form.date_of_do_day.data}/{form.date_of_do_month.data}/{form.date_of_do_day.data}"
+            d_o_a_to_save = datetime.datetime(int(t.tm_year), int(t.tm_mon), int(t.tm_mday))
+            d_o_d_to_save = datetime.datetime(int(form.date_of_do_year.data), int(form.date_of_do_month.data),
+                                              int(form.date_of_do_day.data))
             link_to_save = f"https://{form.link.data}"
             achievement_to_add = Item(name=form.name.data,
                                       value=form.value.data,
@@ -44,7 +46,8 @@ def achievement_page():
         return redirect(url_for('achievement_page'))
 
     if request.method == "GET":
-        items = Item.query.all()
+        items = db.session.query(Item).order_by(Item.id)
+
         mail = "biuro.szachy.online@gmail.com"
         return render_template('achievement.html', items=items, mail=mail, current_user=current_user, form=form)
 
@@ -53,8 +56,7 @@ def achievement_page():
 def login_page():
     form = LoginForm()
     if form.validate_on_submit():
-        attempted_user = User.query.filter_by(
-            username=form.username.data).first()
+        attempted_user = db.session.query(User).filter_by(username=form.username.data).first()
         if attempted_user and attempted_user.check_password_correction(
                 attempted_password=form.password.data):
             login_user(attempted_user)
